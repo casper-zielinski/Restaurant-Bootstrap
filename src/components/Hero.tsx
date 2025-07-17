@@ -18,7 +18,7 @@ function Hero() {
           >
             Speisekarte ansehen
           </a>
-          <a href="#" className="btn btn-outline-light btn-lg px-5 py-3">
+          <a href="#Tisch-Reservierung" className="btn btn-outline-light btn-lg px-5 py-3">
             Tisch reservieren
           </a>
         </div>

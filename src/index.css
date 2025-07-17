@@ -15,12 +15,33 @@
   src: url('./fonts/ManufacturingConsent-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Alfa Slab One';
+  src: url('./fonts/AlfaSlabOne-Regular.ttf');
+}
+
 .manufacturing-consent{
   font-family: 'Manufacturing Consent';
+}
+
+.alfaSlabOneRegular{
+  font-family: 'Alfa Slab One';
 }
 
 .Hero-Text {
   font-size: 4.5rem;
 }
 
+.Carousel-Image{
+  width: 100%;
+  height: 45vh;
+}
 
+.Reservierung-Legende{
+  background-color: white;
+}
+
+.circle{
+  width: 20px;
+  height: 20px;
+}
