@@ -9,3 +9,18 @@
   background-size: cover;
   background-position: center;
 }
+
+@font-face {
+  font-family: 'Manufacturing Consent';
+  src: url('./fonts/ManufacturingConsent-Regular.ttf');
+}
+
+.manufacturing-consent{
+  font-family: 'Manufacturing Consent';
+}
+
+.Hero-Text {
+  font-size: 4.5rem;
+}
+
+

@@ -41,7 +41,7 @@ function Navigation() {
               <a
                 className="nav-link active"
                 aria-current="page"
-                href="#Reservation-Sektion"
+                href="#Tisch-Reservierung"
               >
                 Tisch Reservieren
               </a>

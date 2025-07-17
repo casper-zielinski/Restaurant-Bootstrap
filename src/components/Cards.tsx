@@ -46,7 +46,7 @@ function Cards({
             <p className="display-5 my-4 text-muted fw-bold">{price + "€"}</p>
             <p className="card-text mx-5 text-muted d-none d-lg-block"></p>
             <a href="" className="btn btn-outline-dark btn-lg mt-3">
-              Buy Now!
+              Bestell Jetzt!
             </a>
           </div>
         </div>

@@ -3,6 +3,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navigation from "./components/Navigation";
 import Hero from "./components/Hero";
 import Speisekarte from "./components/Speisekarte";
+import TischReservation from "./components/TischReservation";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Navigation />
       <Hero />
       <Speisekarte />
+      <TischReservation />
     </>
   );
 }

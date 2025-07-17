@@ -7,7 +7,7 @@ function Hero() {
       className="hero-section d-flex align-items-center justify-content-center text-white position-relative"
     >
       <div className="container text-center">
-        <h1 className="display-1 fw-bold mb-4">Weltküche</h1>
+        <h1 className="manufacturing-consent Hero-Text fw-bold mb-4">Weltküche</h1>
         <p className="lead fs-3 mb-5">
           Entdecken Sie Geschmäcker aus aller Welt unter einem Dach
         </p>
