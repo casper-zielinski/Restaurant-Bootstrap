@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+//Used for smaller screens
+
 interface CardCarouselProps {
   img: string[];
   title: string[];

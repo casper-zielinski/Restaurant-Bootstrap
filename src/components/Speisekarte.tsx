@@ -4,7 +4,7 @@ import CardsCarousel from "./CardsCarousel";
 
 function Speisekarte() {
   function useIsMobile() {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768); //to set the Variable to true if its Smartphone Size 
 
     useEffect(() => {
       const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -27,9 +27,9 @@ function Speisekarte() {
         Hier finden Sie eine Auswahl der beliebtesten und am besten bewerteten
         Gerichte unserer Speisekarte
       </p>
-      <div className="border-top border-black shadow container-fluid">
+      <div className="border-top border-black container-fluid">
         {!isMobile ? (
-          <div className="row my-5 pt-4 align-items-center justify-content-around d-none d-md-flex">
+          <div className="row my-3 pt-4 align-items-center justify-content-around d-none d-md-flex">
             <div className="col-12 lead text-center fs-1 p-2 mb-3">
               Asiatisches
             </div>
@@ -74,7 +74,7 @@ function Speisekarte() {
         )}
 
         {!isMobile ? (
-          <div className="row mt-5 pt-4 align-items-center d-none d-md-flex justify-content-around border-top border-black shadow">
+          <div className="row mt-5 pt-4 align-items-center d-none d-md-flex justify-content-around border-top border-black">
             <div className="col-12 lead text-center fs-1 p-2 mb-3">
               Italienisch
             </div>

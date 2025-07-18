@@ -1,5 +1,5 @@
 :root {
-  background-color: #242424;
+  background-color: var(light);
 }
 
 #Haupt-Seite{
@@ -37,11 +37,27 @@
   height: 45vh;
 }
 
+@media (min-width: 600px) {
+  .Carousel-Image{
+    height: 60vh;
+  }
+}
+
 .Reservierung-Legende{
-  background-color: white;
+  background-color: rgb(228, 220, 220);
 }
 
 .circle{
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+}
+
+.Table{
+  width: clamp(2rem,4.5vw,5rem);
+  height: clamp(2rem,4.5vw,5rem);
+}
+
+.Table-Large{
+  width: clamp(5.5rem,9vw,10rem);
+  height: clamp(2rem,4.5vw,5rem);
 }
