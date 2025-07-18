@@ -36,8 +36,7 @@ function Speisekarte() {
             <Cards
               title="Sushi"
               description="Frischer Fisch und Hochwertige Zutaten"
-              imageUrl="Shusi.
-            webp"
+              imageUrl="Shusi.webp"
               price={17.99}
               colSize={["3", "5"]}
             />
@@ -52,8 +51,7 @@ function Speisekarte() {
             <Cards
               title="Soba mit Garnelen"
               description="Frische, saftige Garnelen mit zarter Süße"
-              imageUrl="sobamitgarnelen.
-            webp"
+              imageUrl="sobamitgarnelen.webp"
               price={16.99}
               colSize={["3", "5"]}
             />
@@ -83,16 +81,14 @@ function Speisekarte() {
             <Cards
               title="Penne all’Arrabbiata"
               description="Al dente Penne in einer pikanten Knoblauch-Chili-Tomatensauce – feurig, frisch, unwiderstehlich"
-              imageUrl="penne-all-arrabbiata.
-            webp"
+              imageUrl="penne-all-arrabbiata.webp"
               price={14.99}
               colSize={["3", "5"]}
             />
             <Cards
               title="Pizza Diavolo"
               description="Knuspriger Teig, würzige Tomatensauce und feurig-scharfe Salami – pure Leidenschaft auf deinem Teller"
-              imageUrl="pizza-diavolo.
-            webp"
+              imageUrl="pizza-diavolo.webp"
               price={19.99}
               colSize={["4", "5"]}
               cardHeader={true}
@@ -100,8 +96,7 @@ function Speisekarte() {
             <Cards
               title="Ossobuco"
               description="Zart geschmorte Kalbshaxe in aromatischer Gemüse-Weißwein-Soße – ein Fest für alle Sinne"
-              imageUrl="Ossobuco-alla-mialnse.
-            webp"
+              imageUrl="Ossobuco-alla-mialnse.webp"
               price={22.99}
               colSize={["3", "5"]}
             />
@@ -133,8 +128,7 @@ function Speisekarte() {
             <Cards
               title="Tamales"
               description="Gedämpfter Maisteig, gefüllt mit Fleisch, Chili oder süßen Zutaten, eingewickelt in Maisblätter – ein traditionelles Festtagsessen"
-              imageUrl="portada-tamales.
-            webp"
+              imageUrl="portada-tamales.webp"
               price={20.99}
               colSize={["3", "5"]}
             />
@@ -149,8 +143,7 @@ function Speisekarte() {
             <Cards
               title="Pozole Rojo"
               description="Herzhafte Suppe aus weißem Mais (Hominy), Schweinefleisch und roter Chili-Sauce, garniert mit Rettich, Salat, Zwiebeln und Limette"
-              imageUrl="original-pozole-rojo.
-            webp"
+              imageUrl="original-pozole-rojo.webp"
               price={19.99}
               colSize={["3", "5"]}
             />

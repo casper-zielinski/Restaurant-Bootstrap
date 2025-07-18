@@ -1,3 +1,7 @@
+import TischReservationLegende from "./TischReservationLegende";
+
+//--> Fehler war das Importieren von TischReservation.tsx in TischReservation.tsx, was zur Unendliche Render-Schleife
+
 function TischReservation() {
   return (
     <>
@@ -8,7 +12,7 @@ function TischReservation() {
         <p className="lead text-center text-muted">
           Klicken Sie auf einen verfügbaren Tisch um zu reservieren
         </p>
-      <TischReservation />
+        <TischReservationLegende />
       </section>
     </>
   );
