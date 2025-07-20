@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TischReservationLegende from "./TischReservationLegende";
+import Terasse from "./Terasse";
 
 //--> Fehler war das Importieren von TischReservation.tsx in TischReservation.tsx, was zur Unendliche Render-Schleife
 
@@ -9,12 +10,11 @@ function TischReservation() {
   const [choose, setChoose] = useState<boolean[]>(arr);
   const [OptionMenu, setOptionMenu] = useState(false);
 
-  function OptionMenuShower() {
-    if (choose.some((value) => value === true)) {
-      setOptionMenu(false);
-    } else {
-      setOptionMenu(true);
-    }
+  function OptionMenuShower(index: number) {
+    const newChoose: boolean[] = [... choose];
+    newChoose[index] = !newChoose[index];
+    const Shower = newChoose.some(value => value === true);
+    setOptionMenu(Shower);
   }
 
   return (
@@ -30,120 +30,11 @@ function TischReservation() {
 
         <div className="container mt-5">
           <div className="row m-2 border border-black rounded border-3 p-2 shadow Reservierung-Legende">
-            <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
-              <button
-                className={
-                  choose[0]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() => {
-                  setChoose(
-                    choose.map((value, index) => (index === 0 ? !value : value))
-                  );
-                  OptionMenuShower();
-                }}
-              />
-              <button
-                className={
-                  choose[1]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 1 ? !value : value))
-                  )
-                }
-              />
-            </div>
-
-            <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
-              <button
-                className={
-                  choose[2]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 2 ? !value : value))
-                  )
-                }
-              />
-              <button
-                className={
-                  choose[3]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 3 ? !value : value))
-                  )
-                }
-              />
-            </div>
-
-            <div className="col-4 d-flex flex-column align-items-center border-bottom border-black">
-              <p className="display-6 text-center manufacturing-consent">
-                Terrasse{" "}
-              </p>
-            </div>
-
-            <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
-              <button
-                className={
-                  choose[4]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 4 ? !value : value))
-                  )
-                }
-              />
-              <button
-                className={
-                  choose[5]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 5 ? !value : value))
-                  )
-                }
-              />
-            </div>
-
-            <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
-              <button
-                className={
-                  choose[6]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 6 ? !value : value))
-                  )
-                }
-              />
-              <button
-                className={
-                  choose[7]
-                    ? "btn btn-dark rounded-circle Table my-2 mb-4 shadow-lg"
-                    : "btn btn-secondary rounded-circle Table my-2 mb-4 "
-                }
-                onClick={() =>
-                  setChoose(
-                    choose.map((value, index) => (index === 7 ? !value : value))
-                  )
-                }
-              />
-            </div>
+            <Terasse
+              setChoose={setChoose}
+              choose={choose}
+              OptionMenuShower={OptionMenuShower}
+            />
 
             <div className="col-2 d-flex flex-column align-items-center">
               <button
@@ -315,7 +206,7 @@ function TischReservation() {
                 className={
                   choose[19]
                     ? "btn btn-dark Table my-2 mt-3 shadow-lg"
-                    : "btn btn-secondary Table my-2 mt-3"
+                    : "btn btn-success Table my-2 mt-3"
                 }
                 onClick={() =>
                   setChoose(

@@ -54,9 +54,9 @@ function CardsCarousel({ img, title, id }: CardCarouselProps) {
                 onMouseLeave={() => setHovered(false)}
               >
                 {hovered ? (
-                  <span className="alfaSlabOneRegular">{"Bestell jetzt!"}</span>
+                  <span className="fw-bold">{"Bestell jetzt!"}</span>
                 ) : (
-                  <span className="alfaSlabOneRegular">{title[0]}</span>
+                  <span className="fw-bold">{title[0]}</span>
                 )}
               </button>
             </div>
@@ -74,9 +74,9 @@ function CardsCarousel({ img, title, id }: CardCarouselProps) {
                 onMouseLeave={() => setHovered(false)}
               >
                 {hovered ? (
-                  <span className="alfaSlabOneRegular">{"Bestell jetzt!"}</span>
+                  <span className="fw-bold">{"Bestell jetzt!"}</span>
                 ) : (
-                  <span className="alfaSlabOneRegular">{title[1]}</span>
+                  <span className="fw-bold">{title[1]}</span>
                 )}
               </button>
             </div>
@@ -94,9 +94,9 @@ function CardsCarousel({ img, title, id }: CardCarouselProps) {
                 onMouseLeave={() => setHovered(false)}
               >
                 {hovered ? (
-                  <span className="alfaSlabOneRegular">{"Bestell jetzt!"}</span>
+                  <span className="fw-bold">{"Bestell jetzt!"}</span>
                 ) : (
-                  <span className="alfaSlabOneRegular">{title[2]}</span>
+                  <span className="fw-bold">{title[2]}</span>
                 )}
               </button>
             </div>

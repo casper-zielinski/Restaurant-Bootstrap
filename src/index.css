@@ -35,6 +35,8 @@
 .Carousel-Image{
   width: 100%;
   height: 45vh;
+  background-size: cover;
+  background-position: center;
 }
 
 @media (min-width: 600px) {
@@ -60,4 +62,11 @@
 .Table-Large{
   width: clamp(5.5rem,9vw,10rem);
   height: clamp(2rem,4.5vw,5rem);
+}
+
+@media (min-width: 800px)
+{
+  .Table-Large{
+    width: clamp(9.5rem,15vw,20rem);
+  }
 }
