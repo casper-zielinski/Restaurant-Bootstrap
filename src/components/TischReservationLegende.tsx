@@ -18,17 +18,23 @@ function TischReservationLegende() {
         </div>
 
         <div className="col-12 d-flex justify-content-center align-items-center border-top border-black border-3 m-2">
-          <button className="btn btn-secondary Table my-2" />
-          <span className="fw-bold fs-5 mx-3">Tisch für 4</span>
-          <button className="btn btn-secondary Table-Large m-2" />
-          <span className="fw-bold fs-5 mx-2">Tisch für 10</span>
+          <button className="btn btn-success Table my-2" />
+          <span className="fw-bold fs-5 mx-3">
+            Tisch für 4<br /> (Frei)
+          </span>
+          <button className="btn btn-danger Table-Large m-2" />
+          <span className="fw-bold fs-5 mx-2">
+            Tisch für 10
+            <br /> (Belegt)
+          </span>
         </div>
 
         <div className="d-flex justify-content-center align-items-center">
-          <button className="btn btn-secondary rounded-circle Table my-2" />
-          <span className="fw-bold fs-5 mx-2">Tisch für 2</span>
+          <button className="btn btn-dark rounded-circle Table my-2" />
+          <span className="fw-bold fs-5 mx-2">
+            Tisch für 2<br /> (Ausgewählt)
+          </span>
         </div>
-
       </div>
     </div>
   );

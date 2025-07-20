@@ -67,6 +67,6 @@
 @media (min-width: 800px)
 {
   .Table-Large{
-    width: clamp(9.5rem,15vw,20rem);
+    width: clamp(9.5rem,17.5vw,20rem);
   }
 }
