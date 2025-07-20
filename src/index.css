@@ -15,17 +15,8 @@
   src: url('./fonts/ManufacturingConsent-Regular.ttf');
 }
 
-@font-face {
-  font-family: 'Alfa Slab One';
-  src: url('./fonts/AlfaSlabOne-Regular.ttf');
-}
-
 .manufacturing-consent{
   font-family: 'Manufacturing Consent';
-}
-
-.alfaSlabOneRegular{
-  font-family: 'Alfa Slab One';
 }
 
 .Hero-Text {

@@ -1,4 +1,3 @@
-import React from "react";
 
 interface TerasseProps {
   setChoose: (value: boolean[]) => void;
