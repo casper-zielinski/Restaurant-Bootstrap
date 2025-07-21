@@ -9,67 +9,44 @@ function LargeTables({
   choose,
   OptionMenuShower,
 }: LargeTablesProps) {
+  const buttonMapper: boolean[] = [true, true];
+  const elementMapper: boolean[] = [true, false, true];
+
   return (
     <>
-      <div className="col-4 d-flex flex-column align-items-center">
-        <button
-          className={
-            choose[20]
-              ? "btn btn-dark Table-Large my-2"
-              : "btn btn-success Table-Large my-2"
-          }
-          onClick={() => {
-            setChoose(
-              choose.map((value, index) => (index === 20 ? !value : value))
-            );
-            OptionMenuShower(20);
-          }}
-        />
-        <button
-          className={
-            choose[21]
-              ? "btn btn-dark Table-Large my-2"
-              : "btn btn-success Table-Large my-2"
-          }
-          onClick={() => {
-            setChoose(
-              choose.map((value, index) => (index === 21 ? !value : value))
-            );
-            OptionMenuShower(21);
-          }}
-        />
-      </div>
-
-      <div className="col-4 d-flex flex-column align-items-center"></div>
-
-      <div className="col-4 d-flex flex-column align-items-center">
-        <button
-          className={
-            choose[22]
-              ? "btn btn-dark Table-Large my-2"
-              : "btn btn-success Table-Large my-2"
-          }
-          onClick={() => {
-            setChoose(
-              choose.map((value, index) => (index === 22 ? !value : value))
-            );
-            OptionMenuShower(22);
-          }}
-        />
-        <button
-          className={
-            choose[23]
-              ? "btn btn-dark Table-Large my-2"
-              : "btn btn-success Table-Large my-2"
-          }
-          onClick={() => {
-            setChoose(
-              choose.map((value, index) => (index === 23 ? !value : value))
-            );
-            OptionMenuShower(23);
-          }}
-        />
-      </div>
+      {elementMapper.map((value, elementMapperIndex) => {
+        return (
+          <div className="col-4 d-flex flex-column align-items-center">
+            {value &&
+              buttonMapper.map((_, buttonMapperIndex) => {
+                return (
+                  <button
+                    title={`Tisch ${
+                      buttonMapperIndex + 21 + elementMapperIndex
+                    }: Großer Tisch für 10 Personen, Drinnen, 30€`}
+                    className={
+                      choose[buttonMapperIndex + 20 + elementMapperIndex]
+                        ? "btn btn-primary Table-Large my-2"
+                        : "btn btn-success Table-Large my-2"
+                    }
+                    onClick={() => {
+                      setChoose(
+                        choose.map((value, index) =>
+                          index === buttonMapperIndex + 20 + elementMapperIndex
+                            ? !value
+                            : value
+                        )
+                      );
+                      OptionMenuShower(
+                        buttonMapperIndex + 20 + elementMapperIndex
+                      );
+                    }}
+                  />
+                );
+              })}
+          </div>
+        );
+      })}
     </>
   );
 }

@@ -18,6 +18,36 @@ function TischReservation() {
   const [TableCounter, setTableCounter] = useState(0);
   const [LargeTableCounter, setLargeTableCounter] = useState(0);
 
+  //Das Datum und die Uhrzeit der Reservation
+  const [datum, setDate] = useState("");
+  const [zeit, setTime] = useState("");
+
+  //Das momentane Datum/Uhrzeit holen
+
+  function getDate(): string {
+    if (datum === "") {
+      const today = new Date();
+      const date = today.toLocaleDateString("de-DE");
+      return date;
+    }
+    return datum;
+  }
+
+  function setDEDate(initial: string) {
+    const date = new Date(initial);
+    const deutschesDatum = date.toLocaleDateString("de-DE");
+    setDate(deutschesDatum);
+  }
+
+  function getTime(): string {
+    if (zeit === "") {
+      const today = new Date();
+      const time = today.toTimeString().split(" ")[0].substring(0, 5);
+      return time;
+    }
+    return zeit;
+  }
+
   function OptionMenuShower(index: number) {
     const newChoose: boolean[] = [...choose];
     newChoose[index] = !newChoose[index];
@@ -58,6 +88,34 @@ function TischReservation() {
 
         <div className="container mt-5">
           <div className="row m-2 border border-black rounded border-3 p-2 shadow Reservierung-Legende">
+            <div className="col-12 col-md-6">
+              <input
+                type="date"
+                value={datum}
+                onChange={(e) => {
+                  setDate(e.target.value);
+                  setDEDate(e.target.value);
+                  console.log(datum);
+                }}
+                id="datum"
+                name="datum"
+                className="mb-4 mt-2 form-control form-control-lg"
+              />
+            </div>
+
+            <div className="col-12 col-md-6">
+              <input
+                type="time"
+                value={zeit}
+                onChange={(e) => {
+                  setTime(e.target.value);
+                  console.log(zeit);
+                }}
+                id="uhrzeit"
+                name="uhrzeit"
+                className="mb-4 mt-2 form-control form-control-lg"
+              />
+            </div>
 
             <Terasse
               setChoose={setChoose}
@@ -121,7 +179,10 @@ function TischReservation() {
                     ></button>
                   </div>
                   <div className="modal-body">
-                    Diese Tische werden Reserviert:
+                    <p className="lead ">
+                      {`Reservation für den ${getDate()} um ${getTime()} Uhr:`}
+                    </p>
+
                     {TerasseTableCounter > 0 &&
                       (TerasseTableCounter > 1 ? (
                         <p>
@@ -131,7 +192,7 @@ function TischReservation() {
                       ) : (
                         <p>
                           {TerasseTableCounter +
-                            "Tisch an der Terasse für zwei wurde reserviert"}
+                            " Tisch an der Terasse für zwei wurde reserviert"}
                         </p>
                       ))}
                     {TableCounter > 0 &&

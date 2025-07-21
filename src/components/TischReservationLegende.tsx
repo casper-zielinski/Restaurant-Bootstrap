@@ -30,7 +30,7 @@ function TischReservationLegende() {
         </div>
 
         <div className="d-flex justify-content-center align-items-center">
-          <button className="btn btn-dark rounded-circle Table my-2" />
+          <button className="btn btn-primary rounded-circle Table my-2" />
           <span className="fw-bold fs-5 mx-2">
             Tisch für 2<br /> (Ausgewählt)
           </span>

@@ -30,6 +30,13 @@
   background-position: center;
 }
 
+@media (max-width: 360px)
+{
+  .Carousel-Image{
+    height: 35vh;
+  }
+}
+
 @media (min-width: 600px) {
   .Carousel-Image{
     height: 60vh;
@@ -51,13 +58,22 @@
 }
 
 .Table-Large{
-  width: clamp(5.5rem,9vw,10rem);
+  width: clamp(5rem,10vw,10rem);
   height: clamp(2rem,4.5vw,5rem);
 }
 
-@media (min-width: 800px)
+@media (min-width: 768px)
 {
   .Table-Large{
     width: clamp(9.5rem,17.5vw,20rem);
   }
+}
+
+.form-control {
+    --bs-focus-ring-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.form-control:focus {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25) !important;
 }
