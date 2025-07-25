@@ -16,11 +16,12 @@ function LargeTables({
     <>
       {elementMapper.map((value, elementMapperIndex) => {
         return (
-          <div className="col-4 d-flex flex-column align-items-center">
+          <div className="col-4 d-flex flex-column align-items-center" key={elementMapperIndex}>
             {value &&
               buttonMapper.map((_, buttonMapperIndex) => {
                 return (
                   <button
+                    key={buttonMapperIndex + (elementMapperIndex * 10)}
                     title={`Tisch ${
                       buttonMapperIndex + 21 + elementMapperIndex
                     }: Großer Tisch für 10 Personen, Drinnen, 30€`}

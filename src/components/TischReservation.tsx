@@ -1,15 +1,13 @@
 import { useState } from "react";
 import TischReservationLegende from "./TischReservationLegende";
-import Terasse from "./Terasse";
-import Tables from "./Tables";
-import LargeTables from "./LargeTables";
-import RestaurantBottom from "./RestaurantBottom";
+import { Link } from "react-router-dom";
+import TischReservationen from "./TischReservationen";
+import { reservationAPI, type ReservationData } from '../services/api';
 
 //--> Fehler war das Importieren von TischReservation.tsx in TischReservation.tsx, was zur Unendliche Render-Schleife
 
 function TischReservation() {
   const arr: boolean[] = new Array(24).fill(false); //a array of false values, the size of the amount of tables
-
   const [choose, setChoose] = useState<boolean[]>(arr);
   const [OptionMenu, setOptionMenu] = useState(false);
 
@@ -17,33 +15,46 @@ function TischReservation() {
   const [TerasseTableCounter, setTerasseTableCounter] = useState(0);
   const [TableCounter, setTableCounter] = useState(0);
   const [LargeTableCounter, setLargeTableCounter] = useState(0);
+  const [ReservationPreis, setReservationPreis] = useState(0);
 
   //Das Datum und die Uhrzeit der Reservation
   const [datum, setDate] = useState("");
   const [zeit, setTime] = useState("");
-
+  
   //Das momentane Datum/Uhrzeit holen
 
-  function getDate(): string {
+function getGermanDate(): string {
     if (datum === "") {
       const today = new Date();
       const date = today.toLocaleDateString("de-DE");
       return date;
     }
-    return datum;
+    return setDEDate(datum);
   }
 
-  function setDEDate(initial: string) {
+function getDate(): string {
+  if (datum === "") {
+    const today = new Date();
+    const date = today.toISOString().split("T")[0];
+    return date;
+  }
+  else return datum;
+}
+
+  function setDEDate(initial: string): string {
     const date = new Date(initial);
     const deutschesDatum = date.toLocaleDateString("de-DE");
-    setDate(deutschesDatum);
+    return deutschesDatum;
   }
 
   function getTime(): string {
     if (zeit === "") {
       const today = new Date();
-      const time = today.toTimeString().split(" ")[0].substring(0, 5);
-      return time;
+      let hour = today.toTimeString().split(" ")[0].substring(0, 2);
+      const minute = today.toTimeString().split(" ")[0].substring(2, 5);
+      const hourLater = Number.parseInt(hour) + 1;
+      hour = hourLater.toString();
+      return hour + minute;
     }
     return zeit;
   }
@@ -55,94 +66,83 @@ function TischReservation() {
     setOptionMenu(Shower);
   }
 
-  // Zählt alle Tische die ausgewählt worden sind
+  // Zählt alle Tische die ausgewählt worden sind und deren Preise
   function allTableCounter() {
     choose.forEach((value, index) => {
       if (index < 8 && value) {
         setTerasseTableCounter((prevTable) => prevTable + 1);
+        setReservationPreis((prevPrice) => prevPrice + 10);
       } else if (index < 20 && value) {
         setTableCounter((prevTable) => prevTable + 1);
+        setReservationPreis((prevPrice) => prevPrice + 15);
       } else if (index < 24 && value) {
         setLargeTableCounter((prevTable) => prevTable + 1);
+        setReservationPreis((prevPrice) => prevPrice + 30);
       }
     });
   }
 
-  //setzt alle Tische auf null
+  //setzt alle Tische und deren Preise auf null
   function zeroTables() {
     setTerasseTableCounter(0);
     setTableCounter(0);
     setLargeTableCounter(0);
+    setReservationPreis(0);
+  }
+  
+  //An die API die Reservation senden
+  const sendReservation = async () => 
+  {
+    try{
+      const reservationData: ReservationData = {
+        date: getDate(),
+        time: getTime(),
+        tableCounter: TerasseTableCounter + TableCounter + LargeTableCounter,
+        price: ReservationPreis,
+        tables: choose
+      };
+
+      if (reservationData.tableCounter === 0) {
+        throw new Error('Keine Tische ausgewählt');
+      }
+
+      const result = await reservationAPI.createReservation(reservationData);
+
+      console.log('Reservierung erfolgreich:', result);
+      
+
+    }
+    catch (error: unknown) {
+      console.error('Error creating reservation:', error);
+      throw new Error('Fehler beim Sender der Reservierung');
+    }
   }
 
   return (
     <>
-      <section id="Tisch-Reservierung">
-        <h2 className="display-3 fw-light text-center mt-3 border-top border-black">
+      <section id="Tisch-Reservierung" className="Sektion">
+        <h2 className="display-3 fw-light text-center p-2 border-top">
           Reservierung
         </h2>
-        <p className="lead text-center text-muted">
+        <p className="lead text-center text-warning">
           Klicken Sie auf einen verfügbaren Tisch um zu reservieren
         </p>
         <TischReservationLegende />
 
-        <div className="container mt-5">
-          <div className="row m-2 border border-black rounded border-3 p-2 shadow Reservierung-Legende">
-            <div className="col-12 col-md-6">
-              <input
-                type="date"
-                value={datum}
-                onChange={(e) => {
-                  setDate(e.target.value);
-                  setDEDate(e.target.value);
-                  console.log(datum);
-                }}
-                id="datum"
-                name="datum"
-                className="mb-4 mt-2 form-control form-control-lg"
-              />
-            </div>
-
-            <div className="col-12 col-md-6">
-              <input
-                type="time"
-                value={zeit}
-                onChange={(e) => {
-                  setTime(e.target.value);
-                  console.log(zeit);
-                }}
-                id="uhrzeit"
-                name="uhrzeit"
-                className="mb-4 mt-2 form-control form-control-lg"
-              />
-            </div>
-
-            <Terasse
-              setChoose={setChoose}
-              choose={choose}
-              OptionMenuShower={OptionMenuShower}
-            />
-
-            <Tables
-              setChoose={setChoose}
-              choose={choose}
-              OptionMenuShower={OptionMenuShower}
-            />
-
-            <LargeTables
-              setChoose={setChoose}
-              choose={choose}
-              OptionMenuShower={OptionMenuShower}
-            />
-
-            <RestaurantBottom Tags={["Kasse", "WC", "Ausgang"]} />
-          </div>
-        </div>
+        <TischReservationen
+        datum={getDate()}
+        zeit={getTime()}
+        setDate={setDate}
+        setTime={setTime}
+        setChoose={setChoose}
+        choose={choose}
+        OptionMenuShower={OptionMenuShower}
+        />
 
         {OptionMenu && (
           <div className="d-flex justify-content-center">
             <button
-              className="btn btn-lg btn-outline-dark justify-content-center m-3 px-4"
+              className="btn btn-lg Gold-Button justify-content-center m-3 px-4"
               data-bs-toggle="modal"
               data-bs-target="#Reservierungs-Modal"
               onClick={() => {
@@ -160,7 +160,7 @@ function TischReservation() {
               aria-hidden="true"
             >
               <div className="modal-dialog">
-                <div className="modal-content">
+                <div className="modal-content bg-dark text-white">
                   <div className="modal-header">
                     <h1
                       className="modal-title fs-5"
@@ -180,7 +180,7 @@ function TischReservation() {
                   </div>
                   <div className="modal-body">
                     <p className="lead ">
-                      {`Reservation für den ${getDate()} um ${getTime()} Uhr:`}
+                      {`Reservation für den ${getGermanDate()} um ${getTime()} Uhr:`}
                     </p>
 
                     {TerasseTableCounter > 0 &&
@@ -226,9 +226,16 @@ function TischReservation() {
                     >
                       Schließen
                     </button>
-                    <button type="button" className="btn btn-outline-dark">
-                      Reservieren
-                    </button>
+                    <Link to="/reservieren">
+                      <button
+                        type="button"
+                        className="btn btn-outline-light"
+                        data-bs-dismiss="modal"
+                        onClick={sendReservation}
+                      >
+                        Reservieren
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

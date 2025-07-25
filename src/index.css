@@ -1,5 +1,9 @@
 :root {
-  background-color: var(light);
+  background:var(--primary-color) !important;
+  --primary-color: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  --secondary-color: #353333;
+  --font-color: #ffffff;
+  --gold-shadow: 0 0 20px 5px rgba(190, 163, 10, 0.8);
 }
 
 #Haupt-Seite{
@@ -8,6 +12,33 @@
   linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80");
   background-size: cover;
   background-position: center;
+}
+
+.Sektion{
+  font-family: 'Georgia', serif;
+  background: var(--primary-color) !important;
+  color: var(--font-color) !important;
+}
+
+.Gold-Button{
+  background-color: #FFD700 !important;
+  box-shadow: 0 0 7px 5px rgba(255, 215, 0, 0.8) !important;
+}
+
+.Gold-Button:hover{
+ background: var(--primary-color) !important;
+ box-shadow: 0 0 7px 5px rgba(0, 0, 0, 0.8) !important;
+ color: var(--font-color) !important;
+}
+
+.Cards{
+  background-color: var(--secondary-color) !important;
+  color: var(--font-color) !important;
+  position: relative;
+}
+
+.GreyHover:hover{
+ background-color: var(--primary-color) !important;
 }
 
 @font-face {
@@ -30,6 +61,43 @@
   background-position: center;
 }
 
+.CardHeader::after{
+  content: "Meistbestellt";
+  position: absolute;
+  height: 7%;
+  width: 45%;
+  background: linear-gradient(135deg, #ffd700, #ffed4e, #ffc107, #b8860b);
+  top: -1rem;
+  right: 0;
+  border-radius: 40px;
+  z-index: 99;
+  text-align: center;
+  font-size: large;
+  color: #000;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 1%;
+  transition: all 1s ease;
+}
+
+.CardHeader:hover::after
+{
+animation: goldShimmer 1.5s ease-in-out alternate;
+}
+
+@keyframes goldShimmer {
+  0% {
+    background: linear-gradient(135deg, #ffed4e, #fff700, #ffd700, #daa520);
+  }
+  50% {
+    background: linear-gradient(135deg, #fff700, #ffff80, #ffed4e, #ffd700);
+  }
+  100% {
+    background: linear-gradient(135deg, #ffd700, #ffed4e, #fff700, #daa520);
+  }
+}
+
 @media (max-width: 360px)
 {
   .Carousel-Image{
@@ -44,7 +112,7 @@
 }
 
 .Reservierung-Legende{
-  background-color: rgb(228, 220, 220);
+  background-color: var(--secondary-color) !important;
 }
 
 .circle{
@@ -65,7 +133,28 @@
 @media (min-width: 768px)
 {
   .Table-Large{
-    width: clamp(9.5rem,17.5vw,20rem);
+  width: clamp(9.5rem,17.5vw,20rem);
+  }
+
+  .Cards{
+  box-shadow: var(--gold-shadow) !important;
+  }
+
+  .Reservierung-Legende{
+  box-shadow: var(--gold-shadow) !important;
+  }
+
+  .CardHeader::after{
+    right: -1em;
+  }
+}
+
+@media (max-width: 768px)
+{
+  .FixedHeigth{
+    height: 200px !important;
+    object-fit: cover;
+    object-position: center;
   }
 }
 

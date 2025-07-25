@@ -13,6 +13,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${buttonMapperIndex + 9}: 4 Personen, Drinnen, 15€`}
               className={
                 choose[buttonMapperIndex + 8]
@@ -36,6 +37,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 12
               }: 4 Personen, Drinnen, 15€`}
@@ -63,6 +65,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 15
               }: 4 Personen, Drinnen, 15€`}
@@ -87,6 +90,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 18
               }: 4 Personen, Drinnen, 15€`}

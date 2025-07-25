@@ -1,7 +1,7 @@
 function TischReservationLegende() {
   return (
     <div className="container">
-      <div className="row justify-content-center border border-black rounded-2 shadow border-3 m-2 Reservierung-Legende">
+      <div className="row justify-content-center rounded-2 border border-warning m-2 Reservierung-Legende">
         <div className=" col-12 col-md-6 p-4 mx-3 d-flex justify-content-between">
           <div className="d-flex flex-column align-items-center">
             <div className="rounded-circle circle bg-success" />
@@ -17,7 +17,7 @@ function TischReservationLegende() {
           </div>
         </div>
 
-        <div className="col-12 d-flex justify-content-center align-items-center border-top border-black border-3 m-2">
+        <div className="col-12 d-flex justify-content-center align-items-center border-top border-warning border-3 m-2">
           <button className="btn btn-success Table my-2" />
           <span className="fw-bold fs-5 mx-3">
             Tisch für 4<br /> (Frei)

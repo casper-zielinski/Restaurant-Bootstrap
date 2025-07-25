@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../index.css";
 
 interface CardProps {
   title: string;
@@ -22,30 +23,23 @@ function Cards({
     <>
       <div
         className={
-          "col-lg-" +
-          colSize[0] +
-          " col-md-" +
-          colSize[1] +
-          " my-3 col-10"
+          "col-lg-" + colSize[0] + " col-md-" + colSize[1] + " my-3 col-12 rounded-3"
         }
       >
-        <div className="card border-black shadow rounded-3">
-          {cardHeader && (
-            <div className="card-header text-center text-muted">
-              <h5 className="card-title fs-3">Most Popular</h5>
-            </div>
-          )}
-          <div className="card-body text-center">
-            <h4 className="card-title">{title}</h4>
+        <div
+          className={cardHeader ? "card Cards CardHeader border-warning" : "card Cards border-warning"}
+        >
+          <div className="card-body text-center" >
+            <h4 className="card-title mt-4 fw-bold fs-1">{title}</h4>
             <p className="lead card-subtitle">{description}</p>
             <img
               src={imageUrl}
               alt={title}
-              className="my-4 w-100 h-100 rounded shadow"
+              className="my-4 w-100 h-100 rounded shadow FixedHeigth"
             />
-            <p className="display-5 my-4 text-muted fw-bold">{price + "€"}</p>
+            <p className="display-5 my-4 text-warning fw-bold">{price + "€"}</p>
             <p className="card-text mx-5 text-muted d-none d-lg-block"></p>
-            <a href="" className="btn btn-outline-dark btn-lg mt-3">
+            <a href="" className="btn Gold-Button btn-lg mt-3 mb-3">
               Bestell Jetzt!
             </a>
           </div>

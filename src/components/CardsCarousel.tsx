@@ -1,16 +1,22 @@
-import { useState } from "react";
+import Cards from "./Cards";
 
 //Used for smaller screens
 
+interface CardData {
+  title: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  colSize: [string, string];
+  cardHeader?: boolean;
+}
+
 interface CardCarouselProps {
-  img: string[];
-  title: string[];
+  cards: CardData[];
   id: string;
 }
 
-function CardsCarousel({ img, title, id }: CardCarouselProps) {
-  const [hovered, setHovered] = useState(false);
-
+function CardsCarousel({ cards, id }: CardCarouselProps) {
   return (
     <>
       <div
@@ -42,64 +48,32 @@ function CardsCarousel({ img, title, id }: CardCarouselProps) {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img
-              src={img[0]}
-              className="d-block Carousel-Image rounded border border-black"
-              alt={title[0]}
+            <Cards
+              title={cards[0].title}
+              description={cards[0].description}
+              imageUrl={cards[0].imageUrl}
+              price={cards[0].price}
+              colSize={cards[0].colSize}
+              cardHeader={true}
             />
-            <div className="carousel-caption d-block">
-              <button
-                className="btn btn-light btn-text-hover border border-black btn-sm"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-              >
-                {hovered ? (
-                  <span className="fw-bold">{"Bestell jetzt!"}</span>
-                ) : (
-                  <span className="fw-bold">{title[0]}</span>
-                )}
-              </button>
-            </div>
           </div>
           <div className="carousel-item">
-            <img
-              src={img[1]}
-              className="d-block Carousel-Image rounded border border-black"
-              alt={title[1]}
+            <Cards
+              title={cards[1].title}
+              description={cards[1].description}
+              imageUrl={cards[1].imageUrl}
+              price={cards[1].price}
+              colSize={cards[1].colSize}
             />
-            <div className="carousel-caption d-block">
-              <button
-                className="btn btn-light btn-text-hover border border-black btn-sm"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-              >
-                {hovered ? (
-                  <span className="fw-bold">{"Bestell jetzt!"}</span>
-                ) : (
-                  <span className="fw-bold">{title[1]}</span>
-                )}
-              </button>
-            </div>
           </div>
           <div className="carousel-item">
-            <img
-              src={img[2]}
-              className="d-block Carousel-Image rounded border border-black"
-              alt={title[2]}
+            <Cards
+              title={cards[2].title}
+              description={cards[2].description}
+              imageUrl={cards[2].imageUrl}
+              price={cards[2].price}
+              colSize={cards[2].colSize}
             />
-            <div className="carousel-caption d-block">
-              <button
-                className="btn btn-light btn-text-hover border border-black btn-sm"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
-              >
-                {hovered ? (
-                  <span className="fw-bold">{"Bestell jetzt!"}</span>
-                ) : (
-                  <span className="fw-bold">{title[2]}</span>
-                )}
-              </button>
-            </div>
           </div>
         </div>
         <button

@@ -9,10 +9,11 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
 
   return (
     <>
-      <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
+      <div className="col-2 d-flex flex-column align-items-center border-bottom border-light border-2">
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 1
               }: 2 Personen, Terrasse, 10€`}
@@ -34,10 +35,11 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
         })}
       </div>
 
-      <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
+      <div className="col-2 d-flex flex-column align-items-center border-bottom border-light border-2">
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 3
               }: 2 Personen, Terrasse, 10€`}
@@ -59,14 +61,15 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
         })}
       </div>
 
-      <div className="col-4 d-flex flex-column align-items-center border-bottom border-black">
+      <div className="col-4 d-flex flex-column align-items-center border-bottom border-light border-2">
         <p className="display-6 text-center manufacturing-consent">Terrasse </p>
       </div>
 
-      <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
+      <div className="col-2 d-flex flex-column align-items-center border-bottom border-light border-2">
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 5
               }: 2 Personen, Terrasse, 10€`}
@@ -87,10 +90,11 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
           );
         })}
       </div>
-      <div className="col-2 d-flex flex-column align-items-center border-bottom border-black">
+      <div className="col-2 d-flex flex-column align-items-center border-bottom border-light border-2">
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
+              key={buttonMapperIndex}
               title={`Tisch ${
                 buttonMapperIndex + 7
               }: 2 Personen, Terrasse, 10€`}
