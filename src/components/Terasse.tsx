@@ -1,3 +1,5 @@
+import { Users } from "lucide-react";
+
 interface TerasseProps {
   setChoose: (value: boolean[]) => void;
   choose: boolean[];
@@ -19,8 +21,8 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
               }: 2 Personen, Terrasse, 10€`}
               className={
                 choose[buttonMapperIndex]
-                  ? "btn btn-primary rounded-circle Table my-2 mb-4 shadow-lg"
-                  : "btn btn-success rounded-circle Table my-2 mb-4 "
+                  ? "btn rounded-circle Table SelectedTable my-2 mb-4"
+                  : "btn rounded-circle Table FreeTable my-2 mb-4"
               }
               onClick={() => {
                 setChoose(
@@ -30,7 +32,7 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
                 );
                 OptionMenuShower(buttonMapperIndex);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>
@@ -45,8 +47,8 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
               }: 2 Personen, Terrasse, 10€`}
               className={
                 choose[buttonMapperIndex + 2]
-                  ? "btn btn-primary rounded-circle Table my-2 mb-4 shadow-lg"
-                  : "btn btn-success rounded-circle Table my-2 mb-4 "
+                  ? "btn rounded-circle Table SelectedTable my-2 mb-4"
+                  : "btn rounded-circle Table FreeTable my-2 mb-4"
               }
               onClick={() => {
                 setChoose(
@@ -56,7 +58,7 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 2);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>
@@ -75,8 +77,8 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
               }: 2 Personen, Terrasse, 10€`}
               className={
                 choose[buttonMapperIndex + 4]
-                  ? "btn btn-primary rounded-circle Table my-2 mb-4 shadow-lg"
-                  : "btn btn-success rounded-circle Table my-2 mb-4 "
+                  ? "btn rounded-circle Table SelectedTable my-2 mb-4"
+                  : "btn rounded-circle Table FreeTable my-2 mb-4"
               }
               onClick={() => {
                 setChoose(
@@ -86,7 +88,7 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 4);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>
@@ -100,8 +102,8 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
               }: 2 Personen, Terrasse, 10€`}
               className={
                 choose[buttonMapperIndex + 6]
-                  ? "btn btn-primary rounded-circle Table my-2 mb-4 shadow-lg"
-                  : "btn btn-success rounded-circle Table my-2 mb-4 "
+                  ? "btn rounded-circle Table SelectedTable my-2 mb-4"
+                  : "btn rounded-circle Table FreeTable my-2 mb-4"
               }
               onClick={() => {
                 setChoose(
@@ -111,7 +113,7 @@ function Terasse({ setChoose, choose, OptionMenuShower }: TerasseProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 6);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>

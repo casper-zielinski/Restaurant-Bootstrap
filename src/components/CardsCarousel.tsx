@@ -77,27 +77,24 @@ function CardsCarousel({ cards, id }: CardCarouselProps) {
           </div>
         </div>
         <button
-          className="carousel-control-prev"
+          className="carousel-control-prev Custom-Carousel-Btn"
           type="button"
           data-bs-target={"#" + id}
           data-bs-slide="prev"
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
+          <span aria-hidden="true" className="Carousel-Arrows">
+            ❮
+          </span>
+          <span className="visually-hidden">Previous</span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
-          className="carousel-control-next"
+          className="carousel-control-next Custom-Carousel-Btn"
           type="button"
           data-bs-target={"#" + id}
           data-bs-slide="next"
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
+          <span aria-hidden="true" className="Carousel-Arrows">❯</span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>

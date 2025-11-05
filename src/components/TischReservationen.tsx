@@ -23,7 +23,6 @@ function TischReservationen({datum, zeit, setDate, setTime, setChoose, choose, O
             value={datum}
             onChange={(e) => {
               setDate(e.target.value);
-              console.log(datum);
             }}
             id="datum"
             name="datum"
@@ -37,7 +36,6 @@ function TischReservationen({datum, zeit, setDate, setTime, setChoose, choose, O
             value={zeit}
             onChange={(e) => {
               setTime(e.target.value);
-              console.log(zeit);
             }}
             id="uhrzeit"
             name="uhrzeit"

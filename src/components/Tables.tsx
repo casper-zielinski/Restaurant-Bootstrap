@@ -1,3 +1,5 @@
+import { Users } from "lucide-react";
+
 interface TablesProps {
   setChoose: (value: boolean[]) => void;
   choose: boolean[];
@@ -9,7 +11,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
 
   return (
     <>
-      <div className="col-2 d-flex flex-column align-items-center">
+      <div className="col-2 d-flex  flex-column align-items-center">
         {buttonMapper.map((_, buttonMapperIndex) => {
           return (
             <button
@@ -17,8 +19,8 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
               title={`Tisch ${buttonMapperIndex + 9}: 4 Personen, Drinnen, 15€`}
               className={
                 choose[buttonMapperIndex + 8]
-                  ? "btn btn-primary Table my-2 mt-3 shadow-lg"
-                  : "btn btn-success Table my-2 mt-3"
+                  ? "btn position-relative SelectedTable Table my-2 mt-3"
+                  : "btn position-relative FreeTable Table my-2 mt-3"
               }
               onClick={() => {
                 setChoose(
@@ -28,7 +30,9 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 8);
               }}
-            />
+            >
+              <Users fill="gray" className="position-absolute usersMiddle"/>
+            </button>
           );
         })}
       </div>
@@ -43,8 +47,8 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
               }: 4 Personen, Drinnen, 15€`}
               className={
                 choose[buttonMapperIndex + 11]
-                  ? "btn btn-primary Table my-2 mt-3 shadow-lg"
-                  : "btn btn-success Table my-2 mt-3"
+                  ? "btn SelectedTable Table my-2 mt-3"
+                  : "btn FreeTable Table my-2 mt-3"
               }
               onClick={() => {
                 setChoose(
@@ -54,7 +58,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 11);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>
@@ -71,8 +75,8 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
               }: 4 Personen, Drinnen, 15€`}
               className={
                 choose[buttonMapperIndex + 14]
-                  ? "btn btn-primary Table my-2 mt-3 shadow-lg"
-                  : "btn btn-success Table my-2 mt-3"
+                  ? "btn SelectedTable Table my-2 mt-3"
+                  : "btn FreeTable Table my-2 mt-3"
               }
               onClick={() => {
                 setChoose(
@@ -82,7 +86,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 14);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>
@@ -96,8 +100,8 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
               }: 4 Personen, Drinnen, 15€`}
               className={
                 choose[buttonMapperIndex + 17]
-                  ? "btn btn-primary Table my-2 mt-3 shadow-lg"
-                  : "btn btn-success Table my-2 mt-3"
+                  ? "btn SelectedTable Table my-2 mt-3"
+                  : "btn FreeTable Table my-2 mt-3"
               }
               onClick={() => {
                 setChoose(
@@ -107,7 +111,7 @@ function Tables({ setChoose, choose, OptionMenuShower }: TablesProps) {
                 );
                 OptionMenuShower(buttonMapperIndex + 17);
               }}
-            />
+            ><Users fill="gray" className="position-absolute usersMiddle"/></button>
           );
         })}
       </div>

@@ -2,7 +2,8 @@ import { useState } from "react";
 import TischReservationLegende from "./TischReservationLegende";
 import { Link } from "react-router-dom";
 import TischReservationen from "./TischReservationen";
-import { reservationAPI, type ReservationData } from '../services/api';
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 //--> Fehler war das Importieren von TischReservation.tsx in TischReservation.tsx, was zur Unendliche Render-Schleife
 
@@ -10,6 +11,7 @@ function TischReservation() {
   const arr: boolean[] = new Array(24).fill(false); //a array of false values, the size of the amount of tables
   const [choose, setChoose] = useState<boolean[]>(arr);
   const [OptionMenu, setOptionMenu] = useState(false);
+  const id = uuidv4();
 
   //Die ganzen Tisch Counter zum Zählen aller ausgewählten Tische
   const [TerasseTableCounter, setTerasseTableCounter] = useState(0);
@@ -20,10 +22,10 @@ function TischReservation() {
   //Das Datum und die Uhrzeit der Reservation
   const [datum, setDate] = useState("");
   const [zeit, setTime] = useState("");
-  
+
   //Das momentane Datum/Uhrzeit holen
 
-function getGermanDate(): string {
+  function getGermanDate(): string {
     if (datum === "") {
       const today = new Date();
       const date = today.toLocaleDateString("de-DE");
@@ -32,14 +34,13 @@ function getGermanDate(): string {
     return setDEDate(datum);
   }
 
-function getDate(): string {
-  if (datum === "") {
-    const today = new Date();
-    const date = today.toISOString().split("T")[0];
-    return date;
+  function getDate(): string {
+    if (datum === "") {
+      const today = new Date();
+      const date = today.toISOString().split("T")[0];
+      return date;
+    } else return datum;
   }
-  else return datum;
-}
 
   function setDEDate(initial: string): string {
     const date = new Date(initial);
@@ -89,34 +90,23 @@ function getDate(): string {
     setLargeTableCounter(0);
     setReservationPreis(0);
   }
-  
-  //An die API die Reservation senden
-  const sendReservation = async () => 
-  {
-    try{
-      const reservationData: ReservationData = {
-        date: getDate(),
+
+  const makeReservation = async () => {
+    const response = await axios.post(
+      "https://restaurant-bootstrap-backend-production.up.railway.app/api/reservations",
+      {
+        id: id,
         time: getTime(),
-        tableCounter: TerasseTableCounter + TableCounter + LargeTableCounter,
+        date: getDate(),
         price: ReservationPreis,
-        tables: choose
-      };
-
-      if (reservationData.tableCounter === 0) {
-        throw new Error('Keine Tische ausgewählt');
+        tables: choose,
       }
+    );
 
-      const result = await reservationAPI.createReservation(reservationData);
-
-      console.log('Reservierung erfolgreich:', result);
-      
-
+    if (response.statusText.match("OK")) {
+      alert("Reservierung erfolgreich!");
     }
-    catch (error: unknown) {
-      console.error('Error creating reservation:', error);
-      throw new Error('Fehler beim Sender der Reservierung');
-    }
-  }
+  };
 
   return (
     <>
@@ -130,13 +120,13 @@ function getDate(): string {
         <TischReservationLegende />
 
         <TischReservationen
-        datum={getDate()}
-        zeit={getTime()}
-        setDate={setDate}
-        setTime={setTime}
-        setChoose={setChoose}
-        choose={choose}
-        OptionMenuShower={OptionMenuShower}
+          datum={getDate()}
+          zeit={getTime()}
+          setDate={setDate}
+          setTime={setTime}
+          setChoose={setChoose}
+          choose={choose}
+          OptionMenuShower={OptionMenuShower}
         />
 
         {OptionMenu && (
@@ -226,12 +216,12 @@ function getDate(): string {
                     >
                       Schließen
                     </button>
-                    <Link to="/reservieren">
+                    <Link to={`/reservieren/${id}`}>
                       <button
                         type="button"
                         className="btn btn-outline-light"
                         data-bs-dismiss="modal"
-                        onClick={sendReservation}
+                        onClick={makeReservation}
                       >
                         Reservieren
                       </button>

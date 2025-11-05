@@ -4,6 +4,11 @@
   --secondary-color: #353333;
   --font-color: #ffffff;
   --gold-shadow: 0 0 20px 5px rgba(190, 163, 10, 0.8);
+  --gold-color: rgba(190, 175, 10, 0.874);
+}
+
+body{
+  background:var(--primary-color) !important;
 }
 
 #Haupt-Seite{
@@ -54,11 +59,15 @@
   font-size: 4.5rem;
 }
 
-.Carousel-Image{
-  width: 100%;
-  height: 45vh;
-  background-size: cover;
-  background-position: center;
+
+.Custom-Carousel-Btn{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.Carousel-Arrows{
+  color: rgb(0, 0, 0) !important;
+  opacity: 1 !important;
 }
 
 .CardHeader::after{
@@ -113,6 +122,7 @@ animation: goldShimmer 1.5s ease-in-out alternate;
 
 .Reservierung-Legende{
   background-color: var(--secondary-color) !important;
+  font-size: clamp(16px,2.5vw,24px) !important;
 }
 
 .circle{
@@ -120,9 +130,20 @@ animation: goldShimmer 1.5s ease-in-out alternate;
   height: 15px;
 }
 
+.FreeTable {
+  background-color: #000 !important;
+  border: 2px solid #FFD700 !important;
+}
+
+.SelectedTable {
+  background-color: #FFD700 !important;
+  box-shadow: 0 0 7px 5px rgba(255, 215, 0, 0.6) !important;
+}
+
 .Table{
   width: clamp(2rem,4.5vw,5rem);
   height: clamp(2rem,4.5vw,5rem);
+  border: 2px solid #FFD700 !important;
 }
 
 .Table-Large{
@@ -149,13 +170,20 @@ animation: goldShimmer 1.5s ease-in-out alternate;
   }
 }
 
-@media (max-width: 768px)
-{
-  .FixedHeigth{
-    height: 200px !important;
-    object-fit: cover;
-    object-position: center;
-  }
+.usersMiddle {
+  translate: -50% -50%;
+  height: clamp(17px, 2vw, 40px);
+  width: clamp(17px, 2vw, 40px);
+}
+
+.usersLeft{
+transform: translateY(-50%);
+right: 5%;
+}
+
+.usersRight{
+transform: translateY(-50%);
+left: 5%;
 }
 
 .form-control {
@@ -165,4 +193,14 @@ animation: goldShimmer 1.5s ease-in-out alternate;
 .form-control:focus {
     border-color: #000 !important;
     box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25) !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+  overflow: -moz-scrollbars-none;
 }

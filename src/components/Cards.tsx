@@ -35,7 +35,7 @@ function Cards({
             <img
               src={imageUrl}
               alt={title}
-              className="my-4 w-100 h-100 rounded shadow FixedHeigth"
+              className="my-4 w-100 h-100 rounded shadow"
             />
             <p className="display-5 my-4 text-warning fw-bold">{price + "€"}</p>
             <p className="card-text mx-5 text-muted d-none d-lg-block"></p>
