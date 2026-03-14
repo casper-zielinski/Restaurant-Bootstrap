@@ -2,22 +2,19 @@ import { useEffect, useState } from "react";
 import "../index.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../constants/API_URL";
+import type { Reservation as ReservationType } from "../controller/reservation";
 
 function Reservation() {
-  type Reservation = {
-    id: string;
-    date: string;
-    time: string;
-    price: number;
-    tables: boolean[];
-  };
-
-  const [reservation, setReservation] = useState<Reservation>({
+  const [reservation, setReservation] = useState<ReservationType>({
     id: "",
     date: "",
     time: "",
     price: 0,
     tables: [],
+    name: "",
+    phone: "",
+    email: undefined,
   });
   const params = useParams();
   const [loaded, setLoaded] = useState(false);
@@ -34,14 +31,17 @@ function Reservation() {
   useEffect(() => {
     async function fetchReservationData() {
       if (!params.id) return;
-      const api = `https://restaurant-bootstrap-backend-production.up.railway.app/api/reservations/${params.id}`;
-      const { data } = await axios.get<Reservation>(api);
+      const api = `${API_URL}/api/reservations/${params.id}`;
+      const { data } = await axios.get<ReservationType>(api);
       setReservation({
         id: data.id,
         date: data.date,
         time: data.time,
         price: data.price,
         tables: data.tables,
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
       });
       setLoaded(true);
     }

@@ -2,6 +2,7 @@ import type { NavigateFunction } from "react-router-dom";
 import type { FormData } from "../hooks/useFormValidation";
 import axios from "axios";
 import { closeModal } from "../utils/modal";
+import { API_URL } from "../constants/API_URL";
 
 export interface Reservation {
   id: string;
@@ -36,7 +37,7 @@ export const makeReservation = async (
   }
 
   try {
-    await axios.post(`${import.meta.env.API_URL}/api/reservations`, {
+    await axios.post(`${API_URL}/api/reservations`, {
       id: id,
       time: time,
       date: date,
