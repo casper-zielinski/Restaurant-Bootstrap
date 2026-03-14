@@ -6,9 +6,9 @@ interface ValidationErrors {
   phone?: string;
 }
 
-interface FormData {
+export interface FormData {
   name: string;
-  email: string;
+  email?: string;
   phone: string;
 }
 
@@ -25,9 +25,9 @@ export const useFormValidation = () => {
     return undefined;
   };
 
-  const validateEmail = (email: string): string | undefined => {
+  const validateEmail = (email: string | undefined): string | undefined => {
     if (!email || email.trim() === "") {
-      return "E-Mail darf nicht leer sein";
+      return undefined;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

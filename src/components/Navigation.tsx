@@ -46,44 +46,6 @@ function Navigation() {
                 Tisch Reservieren
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#">
-                Events
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link text-light" href="#">
-                Jobs
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle text-light"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Über uns
-              </a>
-              <ul className="dropdown-menu bg-black">
-                <li>
-                  <a className="dropdown-item text-light GreyHover" href="#">
-                    Team
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item text-light GreyHover" href="#">
-                    Bewertungen
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item text-light GreyHover" href="#">
-                    News
-                  </a>
-                </li>
-              </ul>
-            </li>
           </ul>
         </div>
       </div>

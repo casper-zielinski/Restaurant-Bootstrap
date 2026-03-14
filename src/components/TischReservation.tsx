@@ -2,68 +2,39 @@ import { useState } from "react";
 import TischReservationLegende from "./TischReservationLegende";
 import { useNavigate } from "react-router-dom";
 import TischReservationen from "./TischReservationen";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import { useFormValidation } from "../hooks/useFormValidation";
-import { Modal } from "bootstrap";
+import { getDate, getGermanDate, getTime } from "../utils/time";
+import { allTableCounter, zeroTables } from "../utils/tables";
+import { closeModal } from "../utils/modal";
+import { makeReservation } from "../controller/reservation";
+import { v4 as uuidv4 } from "uuid";
+import { clearFields } from "../utils/fields";
 
 function TischReservation() {
   const arr: boolean[] = new Array(24).fill(false); //a array of false values, the size of the amount of tables
   const [choose, setChoose] = useState<boolean[]>(arr);
   const [OptionMenu, setOptionMenu] = useState(false);
-  const id = uuidv4();
-  const navigate = useNavigate();
   const { errors, validateForm, clearErrors, clearError } = useFormValidation();
 
-  //Die ganzen Tisch Counter zum Zählen aller ausgewählten Tische
   const [TerasseTableCounter, setTerasseTableCounter] = useState(0);
   const [TableCounter, setTableCounter] = useState(0);
   const [LargeTableCounter, setLargeTableCounter] = useState(0);
   const [ReservationPreis, setReservationPreis] = useState(0);
 
-  //Das Datum und die Uhrzeit der Reservation
   const [datum, setDate] = useState("");
   const [zeit, setTime] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [telefonNumber, setTelefonNumber] = useState("");
+  const id = uuidv4();
 
-  //Das momentane Datum/Uhrzeit holen
-
-  function getGermanDate(): string {
-    if (datum === "") {
-      const today = new Date();
-      const date = today.toLocaleDateString("de-DE");
-      return date;
-    }
-    return setDEDate(datum);
-  }
-
-  function getDate(): string {
-    if (datum === "") {
-      const today = new Date();
-      const date = today.toISOString().split("T")[0];
-      return date;
-    } else return datum;
-  }
-
-  function setDEDate(initial: string): string {
-    const date = new Date(initial);
-    const deutschesDatum = date.toLocaleDateString("de-DE");
-    return deutschesDatum;
-  }
-
-  function getTime(): string {
-    if (zeit === "") {
-      const today = new Date();
-      let hour = today.toTimeString().split(" ")[0].substring(0, 2);
-      const minute = today.toTimeString().split(" ")[0].substring(2, 5);
-      const hourLater = Number.parseInt(hour) + 1;
-      hour = hourLater.toString();
-      return hour + minute;
-    }
-    return zeit;
-  }
+  const clearTables = () =>
+    zeroTables(
+      setTerasseTableCounter,
+      setTableCounter,
+      setLargeTableCounter,
+      setReservationPreis,
+    );
 
   function OptionMenuShower(index: number) {
     const newChoose: boolean[] = [...choose];
@@ -72,79 +43,7 @@ function TischReservation() {
     setOptionMenu(Shower);
   }
 
-  // Zählt alle Tische die ausgewählt worden sind und deren Preise
-  function allTableCounter() {
-    choose.forEach((value, index) => {
-      if (index < 8 && value) {
-        setTerasseTableCounter((prevTable) => prevTable + 1);
-        setReservationPreis((prevPrice) => prevPrice + 10);
-      } else if (index < 20 && value) {
-        setTableCounter((prevTable) => prevTable + 1);
-        setReservationPreis((prevPrice) => prevPrice + 15);
-      } else if (index < 24 && value) {
-        setLargeTableCounter((prevTable) => prevTable + 1);
-        setReservationPreis((prevPrice) => prevPrice + 30);
-      }
-    });
-  }
-
-  //setzt alle Tische und deren Preise auf null
-  function zeroTables() {
-    setTerasseTableCounter(0);
-    setTableCounter(0);
-    setLargeTableCounter(0);
-    setReservationPreis(0);
-  }
-
-  const closeModal = () => {
-    // Modal schließen
-    const modal = document.getElementById("Reservierungs-Modal");
-    const modalInstance = Modal.getInstance(modal as Element);
-    modalInstance?.hide();
-  };
-
-  const makeReservation = async (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    // Validate form before submitting
-    const isValid = validateForm({
-      name: name,
-      email: email,
-      phone: telefonNumber,
-    });
-
-    if (!isValid) {
-      return; // Stop if validation fails
-    }
-
-    try {
-      await axios.post(`${import.meta.env.API_URL}/api/reservations`, {
-        id: id,
-        time: getTime(),
-        date: getDate(),
-        price: ReservationPreis,
-        tables: choose,
-        name: name,
-        email: email,
-        phone: telefonNumber,
-      });
-
-      alert("Reservierung erfolgreich!");
-      // Clear form fields after successful reservation
-      setName("");
-      setEmail("");
-      setTelefonNumber("");
-      clearErrors();
-
-      // Modal schließen
-      closeModal();
-      // Navigate to reservation confirmation page
-      navigate(`/reservieren/${id}`);
-    } catch (error) {
-      alert("Fehler bei der Reservierung. Bitte versuchen Sie es erneut.");
-      console.error("Reservation error:", error);
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <>
@@ -158,8 +57,8 @@ function TischReservation() {
         <TischReservationLegende />
 
         <TischReservationen
-          datum={getDate()}
-          zeit={getTime()}
+          datum={getDate(datum)}
+          zeit={getTime(zeit)}
           setDate={setDate}
           setTime={setTime}
           setChoose={setChoose}
@@ -174,8 +73,14 @@ function TischReservation() {
               data-bs-toggle="modal"
               data-bs-target="#Reservierungs-Modal"
               onClick={() => {
-                zeroTables();
-                allTableCounter();
+                clearTables();
+                allTableCounter(
+                  choose,
+                  setTerasseTableCounter,
+                  setTableCounter,
+                  setLargeTableCounter,
+                  setReservationPreis,
+                );
               }}
             >
               Reserviere
@@ -201,14 +106,12 @@ function TischReservation() {
                   className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
-                  onClick={() => {
-                    zeroTables();
-                  }}
+                  onClick={() => clearTables}
                 ></button>
               </div>
               <div className="modal-body">
                 <p className="lead ">
-                  {`Reservation für den ${getGermanDate()} um ${getTime()} Uhr:`}
+                  {`Reservation für den ${getGermanDate(datum)} um ${getTime(zeit)} Uhr:`}
                 </p>
 
                 {TerasseTableCounter > 0 &&
@@ -313,7 +216,7 @@ function TischReservation() {
                   type="button"
                   className="btn btn-secondary"
                   onClick={() => {
-                    zeroTables();
+                    clearTables();
                     closeModal();
                   }}
                 >
@@ -322,7 +225,24 @@ function TischReservation() {
                 <button
                   type="button"
                   className="btn btn-outline-light"
-                  onClick={makeReservation}
+                  onClick={(e) =>
+                    makeReservation(
+                      e,
+                      navigate,
+                      validateForm,
+                      clearErrors,
+                      {
+                        date: datum,
+                        id: id,
+                        name: name,
+                        phone: telefonNumber,
+                        price: ReservationPreis,
+                        tables: choose,
+                        time: zeit,
+                      },
+                      () => clearFields(setName, setEmail, setTelefonNumber),
+                    )
+                  }
                 >
                   Reservieren
                 </button>
