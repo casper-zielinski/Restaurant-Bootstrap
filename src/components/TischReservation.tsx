@@ -1,17 +1,19 @@
 import { useState } from "react";
 import TischReservationLegende from "./TischReservationLegende";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TischReservationen from "./TischReservationen";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-
-//--> Fehler war das Importieren von TischReservation.tsx in TischReservation.tsx, was zur Unendliche Render-Schleife
+import { useFormValidation } from "../hooks/useFormValidation";
+import { Modal } from "bootstrap";
 
 function TischReservation() {
   const arr: boolean[] = new Array(24).fill(false); //a array of false values, the size of the amount of tables
   const [choose, setChoose] = useState<boolean[]>(arr);
   const [OptionMenu, setOptionMenu] = useState(false);
   const id = uuidv4();
+  const navigate = useNavigate();
+  const { errors, validateForm, clearErrors, clearError } = useFormValidation();
 
   //Die ganzen Tisch Counter zum Zählen aller ausgewählten Tische
   const [TerasseTableCounter, setTerasseTableCounter] = useState(0);
@@ -22,6 +24,9 @@ function TischReservation() {
   //Das Datum und die Uhrzeit der Reservation
   const [datum, setDate] = useState("");
   const [zeit, setTime] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefonNumber, setTelefonNumber] = useState("");
 
   //Das momentane Datum/Uhrzeit holen
 
@@ -91,20 +96,53 @@ function TischReservation() {
     setReservationPreis(0);
   }
 
-  const makeReservation = async () => {
-    const response = await axios.post(
-      "https://restaurant-bootstrap-backend-production.up.railway.app/api/reservations",
-      {
+  const closeModal = () => {
+    // Modal schließen
+    const modal = document.getElementById("Reservierungs-Modal");
+    const modalInstance = Modal.getInstance(modal as Element);
+    modalInstance?.hide();
+  };
+
+  const makeReservation = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    // Validate form before submitting
+    const isValid = validateForm({
+      name: name,
+      email: email,
+      phone: telefonNumber,
+    });
+
+    if (!isValid) {
+      return; // Stop if validation fails
+    }
+
+    try {
+      await axios.post(`${import.meta.env.API_URL}/api/reservations`, {
         id: id,
         time: getTime(),
         date: getDate(),
         price: ReservationPreis,
         tables: choose,
-      }
-    );
+        name: name,
+        email: email,
+        phone: telefonNumber,
+      });
 
-    if (response.statusText.match("OK")) {
       alert("Reservierung erfolgreich!");
+      // Clear form fields after successful reservation
+      setName("");
+      setEmail("");
+      setTelefonNumber("");
+      clearErrors();
+
+      // Modal schließen
+      closeModal();
+      // Navigate to reservation confirmation page
+      navigate(`/reservieren/${id}`);
+    } catch (error) {
+      alert("Fehler bei der Reservierung. Bitte versuchen Sie es erneut.");
+      console.error("Reservation error:", error);
     }
   };
 
@@ -142,96 +180,156 @@ function TischReservation() {
             >
               Reserviere
             </button>
-            <div
-              className="modal fade"
-              id="Reservierungs-Modal"
-              tabIndex={-1}
-              aria-labelledby="Reservierungs-ModalLabel"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content bg-dark text-white">
-                  <div className="modal-header">
-                    <h1
-                      className="modal-title fs-5"
-                      id="Reservierungs-ModalLabel"
-                    >
-                      Tische reservieren
-                    </h1>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                      onClick={() => {
-                        zeroTables();
-                      }}
-                    ></button>
-                  </div>
-                  <div className="modal-body">
-                    <p className="lead ">
-                      {`Reservation für den ${getGermanDate()} um ${getTime()} Uhr:`}
-                    </p>
+          </div>
+        )}
 
-                    {TerasseTableCounter > 0 &&
-                      (TerasseTableCounter > 1 ? (
-                        <p>
-                          {TerasseTableCounter +
-                            " Tische an der Terasse für zwei wurden reserviert"}
-                        </p>
-                      ) : (
-                        <p>
-                          {TerasseTableCounter +
-                            " Tisch an der Terasse für zwei wurde reserviert"}
-                        </p>
-                      ))}
-                    {TableCounter > 0 &&
-                      (TableCounter > 1 ? (
-                        <p>
-                          {TableCounter + " Tische für 4 wurden reserviert"}
-                        </p>
-                      ) : (
-                        <p>{TableCounter + " Tisch für 4 wurde reserviert"}</p>
-                      ))}
-                    {LargeTableCounter > 0 &&
-                      (LargeTableCounter > 1 ? (
-                        <p>
-                          {LargeTableCounter +
-                            " Tische für 10 wurden reserviert"}
-                        </p>
-                      ) : (
-                        <p>
-                          {LargeTableCounter + " Tisch für 10 wurde reserviert"}
-                        </p>
-                      ))}
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                      onClick={() => {
-                        zeroTables();
-                      }}
-                    >
-                      Schließen
-                    </button>
-                    <Link to={`/reservieren/${id}`}>
-                      <button
-                        type="button"
-                        className="btn btn-outline-light"
-                        data-bs-dismiss="modal"
-                        onClick={makeReservation}
-                      >
-                        Reservieren
-                      </button>
-                    </Link>
-                  </div>
+        <div
+          className="modal fade"
+          id="Reservierungs-Modal"
+          tabIndex={-1}
+          aria-labelledby="Reservierungs-ModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content bg-dark text-white">
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="Reservierungs-ModalLabel">
+                  Tische reservieren
+                </h1>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  onClick={() => {
+                    zeroTables();
+                  }}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p className="lead ">
+                  {`Reservation für den ${getGermanDate()} um ${getTime()} Uhr:`}
+                </p>
+
+                {TerasseTableCounter > 0 &&
+                  (TerasseTableCounter > 1 ? (
+                    <p>
+                      {TerasseTableCounter +
+                        " Tische an der Terasse für zwei wurden reserviert"}
+                    </p>
+                  ) : (
+                    <p>
+                      {TerasseTableCounter +
+                        " Tisch an der Terasse für zwei wurde reserviert"}
+                    </p>
+                  ))}
+                {TableCounter > 0 &&
+                  (TableCounter > 1 ? (
+                    <p>{TableCounter + " Tische für 4 wurden reserviert"}</p>
+                  ) : (
+                    <p>{TableCounter + " Tisch für 4 wurde reserviert"}</p>
+                  ))}
+                {LargeTableCounter > 0 &&
+                  (LargeTableCounter > 1 ? (
+                    <p>
+                      {LargeTableCounter + " Tische für 10 wurden reserviert"}
+                    </p>
+                  ) : (
+                    <p>
+                      {LargeTableCounter + " Tisch für 10 wurde reserviert"}
+                    </p>
+                  ))}
+
+                <hr className="my-4" />
+
+                <div className="mb-3">
+                  <label htmlFor="name-input" className="form-label">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${
+                      errors.name ? "is-invalid" : ""
+                    }`}
+                    id="name-input"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      if (errors.name) clearError("name");
+                    }}
+                    placeholder="Ihr Name"
+                  />
+                  {errors.name && (
+                    <div className="invalid-feedback">{errors.name}</div>
+                  )}
                 </div>
+
+                <div className="mb-3">
+                  <label htmlFor="email-input" className="form-label">
+                    E-Mail *
+                  </label>
+                  <input
+                    type="email"
+                    className={`form-control ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
+                    id="email-input"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (errors.email) clearError("email");
+                    }}
+                    placeholder="ihre.email@beispiel.de"
+                  />
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="phone-input" className="form-label">
+                    Telefonnummer *
+                  </label>
+                  <input
+                    type="tel"
+                    className={`form-control ${
+                      errors.phone ? "is-invalid" : ""
+                    }`}
+                    id="phone-input"
+                    value={telefonNumber}
+                    onChange={(e) => {
+                      setTelefonNumber(e.target.value);
+                      if (errors.phone) clearError("phone");
+                    }}
+                    placeholder="+49 123 456789"
+                  />
+                  {errors.phone && (
+                    <div className="invalid-feedback">{errors.phone}</div>
+                  )}
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    zeroTables();
+                    closeModal();
+                  }}
+                >
+                  Schließen
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-light"
+                  onClick={makeReservation}
+                >
+                  Reservieren
+                </button>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </section>
     </>
   );
