@@ -2,10 +2,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navigation() {
+  const url = window.document.URL;
+
   return (
     <nav className="navbar navbar-expand-lg fixed-top bg-dark">
       <div className="container-fluid">
-        <a className="navbar-brand text-light fw-bold" href="#Haupt-Seite">
+        <a
+          className="navbar-brand text-light fw-bold"
+          href={url.includes("reservieren") ? "/" : "#Haupt-Seite"}
+        >
           <img
             src="/Restaurant.png"
             alt="Logo"
@@ -32,7 +37,9 @@ function Navigation() {
               <a
                 className="nav-link active text-light"
                 aria-current="page"
-                href="#Speisekarte-Sektion"
+                href={
+                  url.includes("reservieren") ? "/" : "#Speisekarte-Sektion"
+                }
               >
                 Speisekarte
               </a>
@@ -41,7 +48,7 @@ function Navigation() {
               <a
                 className="nav-link active text-light"
                 aria-current="page"
-                href="#Tisch-Reservierung"
+                href={url.includes("reservieren") ? "/" : "#Tisch-Reservierung"}
               >
                 Tisch Reservieren
               </a>

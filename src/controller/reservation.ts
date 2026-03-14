@@ -11,7 +11,7 @@ export interface Reservation {
   price: number;
   tables: boolean[];
   email?: string;
-  phone: string;
+  phoneNumber: string;
   name: string;
 }
 
@@ -20,7 +20,16 @@ export const makeReservation = async (
   navigate: NavigateFunction,
   validateForm: (formData: FormData) => boolean,
   clearErrors: () => void,
-  { date, id, name, phone, price, tables, time, email }: Reservation,
+  {
+    date,
+    id,
+    name,
+    phoneNumber: phone,
+    price,
+    tables,
+    time,
+    email,
+  }: Reservation,
   clearFields: () => void,
 ) => {
   e.preventDefault();
@@ -37,7 +46,7 @@ export const makeReservation = async (
   }
 
   try {
-    await axios.post(`${API_URL}/api/reservations`, {
+    await axios.post(`${API_URL}/reservations`, {
       id: id,
       time: time,
       date: date,
@@ -45,17 +54,14 @@ export const makeReservation = async (
       tables: tables,
       name: name,
       email: email,
-      phone: phone,
+      phoneNumber: phone,
     } as Reservation);
 
-    alert("Reservierung erfolgreich!");
-    // Clear form fields after successful reservation
     clearFields();
     clearErrors();
 
-    // Modal schließen
-    closeModal();
-    // Navigate to reservation confirmation page
+    // Erst Modal schließen, dann navigieren (alert() würde Bootstrap-State zerstören)
+    await closeModal();
     navigate(`/reservieren/${id}`);
   } catch (error) {
     alert("Fehler bei der Reservierung. Bitte versuchen Sie es erneut.");

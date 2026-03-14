@@ -232,13 +232,13 @@ function TischReservation() {
                       validateForm,
                       clearErrors,
                       {
-                        date: datum,
+                        date: getDate(datum),
                         id: id,
                         name: name,
-                        phone: telefonNumber,
+                        phoneNumber: telefonNumber,
                         price: ReservationPreis,
                         tables: choose,
-                        time: zeit,
+                        time: getTime(zeit),
                       },
                       () => clearFields(setName, setEmail, setTelefonNumber),
                     )

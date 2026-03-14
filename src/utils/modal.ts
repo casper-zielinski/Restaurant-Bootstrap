@@ -1,7 +1,18 @@
-import { Modal } from "bootstrap";
+export const closeModal = (): Promise<void> => {
+  return new Promise((resolve) => {
+    const modalEl = document.getElementById("Reservierungs-Modal");
+    if (!modalEl) {
+      resolve();
+      return;
+    }
 
-export const closeModal = () => {
-  const modal = document.getElementById("Reservierungs-Modal");
-  const modalInstance = Modal.getInstance(modal as Element);
-  modalInstance?.hide();
+    modalEl.addEventListener("hidden.bs.modal", () => resolve(), { once: true });
+
+    // Den vorhandenen data-bs-dismiss Button klicken – Bootstraps eigener Mechanismus,
+    // zuverlässiger als getInstance/getOrCreateInstance in React
+    const dismissBtn = modalEl.querySelector<HTMLElement>("[data-bs-dismiss='modal']");
+    if (dismissBtn) {
+      dismissBtn.click();
+    }
+  });
 };
