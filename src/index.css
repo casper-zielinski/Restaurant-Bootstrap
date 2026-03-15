@@ -42,6 +42,35 @@ body{
   position: relative;
 }
 
+.CardHeader {
+  margin-top: -0.75rem !important;
+  margin-bottom: -0.75rem !important;
+  z-index: 1;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .CardHeader {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Center badge inside the card — avoids clipping against the right card edge */
+  .CardHeader::after {
+    top: 0.5rem;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 55%;
+  }
+
+  /* All carousel cards same height so the carousel doesn't jump between slides */
+  .carousel-inner .Cards {
+    min-height: 33rem;
+  }
+}
+
 .GreyHover:hover{
  background-color: var(--primary-color) !important;
 }

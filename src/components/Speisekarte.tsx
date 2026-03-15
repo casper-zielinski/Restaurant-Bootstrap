@@ -12,7 +12,7 @@ function Speisekarte() {
       return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    return isMobile; // ← du gibst hier den Zustand zurück
+    return isMobile; 
   }
 
   const isMobile = useIsMobile();
@@ -22,7 +22,7 @@ function Speisekarte() {
       <h2 className="display-3 fw-light text-center p-3 border-top">
         Speisekarte
       </h2>
-      <p className="lead text-center text-light">
+      <p className="lead p-1 text-center text-light">
         Unsere Speisen aus der ganzen Welt
       </p>
       <p className="text-center manufacturing-consent fs-3">
@@ -31,7 +31,7 @@ function Speisekarte() {
       </p>
       <div className="border-top border-bottom border-secondary container-fluid">
         {!isMobile ? (
-          <div className="row my-3 pt-4 align-items-center justify-content-around d-none d-md-flex">
+          <div className="row my-3 py-4 align-items-stretch justify-content-around d-none d-md-flex">
             <div className="col-12 lead text-center fs-1 p-2 mb-3">
               Asiatisches
             </div>
@@ -95,7 +95,7 @@ function Speisekarte() {
         )}
 
         {!isMobile ? (
-          <div className="row mt-5 pt-4 align-items-center d-none d-md-flex justify-content-around border-top border-secondary">
+          <div className="row py-4 mt-3 align-items-stretch d-none d-md-flex justify-content-around border-top border-secondary">
             <div className="col-12 lead text-center fs-1 p-2 mb-3">
               Italienisch
             </div>
@@ -163,7 +163,7 @@ function Speisekarte() {
         )}
 
         {!isMobile ? (
-          <div className="row pt-4 align-items-center justify-content-around border-top border-secondary d-none d-md-flex">
+          <div className="row py-4 align-items-stretch justify-content-around border-top border-secondary d-none d-md-flex">
             <div className="col-12 lead text-center fs-1 p-2 mb-3">
               Mexikanisch
             </div>

@@ -27,9 +27,9 @@ function Cards({
         }
       >
         <div
-          className={cardHeader ? "card Cards CardHeader border-warning" : "card Cards border-warning"}
+          className={cardHeader ? "card Cards CardHeader border-warning h-100" : "card Cards border-warning h-100"}
         >
-          <div className="card-body text-center" >
+          <div className="card-body text-center d-flex flex-column" >
             <h4 className="card-title mt-4 fw-bold fs-1">{title}</h4>
             <p className="lead card-subtitle">{description}</p>
             <img
@@ -39,7 +39,7 @@ function Cards({
             />
             <p className="display-5 my-4 text-warning fw-bold">{price + "€"}</p>
             <p className="card-text mx-5 text-muted d-none d-lg-block"></p>
-            <a href="" className="btn Gold-Button btn-lg mt-3 mb-3">
+            <a href="" className="btn Gold-Button btn-lg mt-auto mb-4">
               Bestell Jetzt!
             </a>
           </div>
