@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../constants/API_URL";
 import type { Reservation as ReservationType } from "../controller/reservation";
 import { setDEDate } from "../utils/time";
+import DetailRow from "../components/DetailRow";
 
 function Reservation() {
   const [reservation, setReservation] = useState<ReservationType>({
@@ -171,28 +172,6 @@ function Reservation() {
         </div>
       </div>
     </main>
-  );
-}
-
-function DetailRow({
-  label,
-  value,
-  highlight = false,
-}: {
-  label: string;
-  value: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div className="d-flex justify-content-between align-items-center">
-      <span className="text-secondary">{label}</span>
-      <span
-        className="fw-semibold"
-        style={highlight ? { color: "rgba(190,175,10,0.874)" } : {}}
-      >
-        {value}
-      </span>
-    </div>
   );
 }
 
