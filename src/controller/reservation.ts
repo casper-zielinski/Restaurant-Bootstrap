@@ -13,6 +13,7 @@ export interface Reservation {
   email?: string;
   phoneNumber: string;
   name: string;
+  userId?: string;
 }
 
 export const makeReservation = async (
@@ -46,16 +47,22 @@ export const makeReservation = async (
   }
 
   try {
-    await axios.post(`${API_URL}/reservations`, {
-      id: id,
-      time: time,
-      date: date,
-      price: price,
-      tables: tables,
-      name: name,
-      email: email,
-      phoneNumber: phone,
-    } as Reservation);
+    await axios.post(
+      `${API_URL}/reservations`,
+      {
+        id: id,
+        time: time,
+        date: date,
+        price: price,
+        tables: tables,
+        name: name,
+        email: email,
+        phoneNumber: phone,
+      } as Reservation,
+      {
+        withCredentials: true,
+      },
+    );
 
     clearFields();
     clearErrors();
