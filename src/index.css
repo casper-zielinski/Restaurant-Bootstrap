@@ -46,6 +46,7 @@ body{
   margin-top: -0.75rem !important;
   margin-bottom: -0.75rem !important;
   z-index: 1;
+  position: relative;
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -56,13 +57,18 @@ body{
 }
 
 @media (max-width: 767.98px) {
-  /* Center badge inside the card — avoids clipping against the right card edge */
+  /* Move badge inside the card (top: -1rem would be clipped by carousel overflow:hidden) */
   .CardHeader::after {
-    top: 0.5rem;
+    top: -0.365rem !important;
     right: auto;
     left: 50%;
     transform: translateX(-50%);
     width: 55%;
+  }
+
+  /* Push the card title down so it doesn't sit right under the badge */
+  .CardHeader .card-title {
+    margin-top: 2.5rem !important;
   }
 
   /* All carousel cards same height so the carousel doesn't jump between slides */
